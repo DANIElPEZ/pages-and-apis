@@ -1,0 +1,8 @@
+{
+  "name": "fecha-api-crispy-chikis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "moment-timezone": "^0.5.43"
+  }
+}
