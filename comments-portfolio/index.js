@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 dotenv.config();
 
@@ -17,6 +18,11 @@ const client = new MongoClient(uri,  {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}));
 
 app.get('/comments', async (req, res) => {
   try {
