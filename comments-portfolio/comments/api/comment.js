@@ -2,7 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import { sanitizeInput } from './utils/sanitizeInput.js';
 dotenv.config();
 
 const app = express();
@@ -55,3 +54,16 @@ app.listen(3000, async() => {
   }
   console.log('Servidor escuchando en http://localhost:3000');
 });
+
+function sanitizeInput(name, comment) {
+     const sanitizeName = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+     const sanitizeComment = /^[\p{L}\p{Emoji_Presentation}\p{Emoji}\s]+$/u;
+
+     const isValidName = sanitizeName.test(name.trim());
+     const isValidComment = sanitizeComment.test(comment.trim());
+
+     return {
+          name: isValidName,
+          comment: isValidComment
+     };
+}
