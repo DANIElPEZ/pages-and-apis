@@ -37,14 +37,12 @@ app.get('/comments', async (req, res) => {
 app.post('/comments', async (req,res)=>{
   try {
     const sanitizedInput = sanitizeInput(req.body.name, req.body.comment);
-    const name = sanitizedInput.name?.trim();
-    const comment = sanitizedInput.comment?.trim();
-    if (!name || !comment || name.length < 15 || comment.length < 10) return res.status(400).send('Datos no válidos');
-
+    
+    if (!sanitizedInput.name && !sanitizedInput.comment) return res.status(400).send('Datos no válidos');
     const db = client.db('dnvdev').collection('comments');
     await db.insertOne({
-      name: sanitizedInput.name,
-      comment: sanitizedInput.comment
+      name: req.body.name,
+      comment: req.body.comment
     });
     res.status(201).send('Comentario insertado correctamente');
   } catch (error) {
