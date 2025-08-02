@@ -1,12 +1,23 @@
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 const input = document.getElementById("codeInput");
-document.getElementById("codeInput").value = code || "Code not found";
+const btn = document.getElementById("copyBtn")
+input.value = code || "Code not found";
 
 function copyCode() {
-     input.select();
-     input.setSelectionRange(0, 99999);
-     document.execCommand("copy");
-     alert("Code copied: " + input.value);
-     window.close();
+     if (code) {
+          await navigator.clipboard.writeText(code);
+          alert("Código copiado: " + code);
+          window.close();
+     } else {
+          alert("No hay código para copiar.");
+     }
 }
+
+btn.addEventListener("click",async () => {
+        if (code) {
+          await navigator.clipboard.writeText(code);
+          alert("Code copied: " + code);
+          window.close();
+        }
+    });
