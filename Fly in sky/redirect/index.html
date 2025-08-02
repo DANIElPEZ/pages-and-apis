@@ -1,32 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html  lang="en">
+
 <head>
-  <title>OAuth Code</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; text-align: center; }
-    input { font-size: 1rem; padding: 0.5rem; width: 80%; margin-bottom: 1rem; }
-    button { font-size: 1rem; padding: 0.5rem 1rem; }
-  </style>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <title>OAuth Code</title>
+     <link rel="stylesheet" href="style.css">
+     <script type="module" src="index.js"></script>
 </head>
+
 <body>
-  <h2>Authorization Code</h2>
-  <p>Copia este código y pégalo en la aplicación Flutter:</p>
-  <input id="codeInput" readonly />
-  <br>
-  <button onclick="copyCode()">Copiar</button>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-    document.getElementById("codeInput").value = code || "No se encontró el código";
-
-    function copyCode() {
-      const input = document.getElementById("codeInput");
-      input.select();
-      input.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-      alert("Código copiado: " + input.value);
-    }
-  </script>
+     <div>
+          <h2>You are already logged in 😀</h2>
+          <p>Please copy the code and paste it into the code field.</p>
+          <input id="codeInput" readonly />
+          <button onclick="copyCode()">Copy</button>
+     </div>
 </body>
+
 </html>
