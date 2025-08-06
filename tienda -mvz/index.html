@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tienda MVZ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="./assets/mvz.png" type="image/x-icon">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+  <header class="bg-white shadow sticky top-0 left-0">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between sm:items-center">
+      <div class="text-2xl font-semibold">🐕MVZ🐕</div>
+      <div class="flex gap-4 items-center">
+        <input id="searchInput" type="text" placeholder="Buscar producto..." class="px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <div id="totalCount" class="text-sm text-gray-600"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Grid de productos -->
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <div id="noResults" class="hidden text-center py-10 text-gray-500">
+      No se encontraron productos con esos filtros.
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full relative">
+      <button id="closeModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+      <div class="p-6">
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex-shrink-0">
+            <img id="modalImage" src="" alt="Producto" class="w-36 h-36 object-cover rounded-md" />
+          </div>
+          <div class="flex-1">
+            <h2 id="modalName" class="text-xl font-bold mb-1"></h2>
+            <p id="modalCategory" class="text-sm uppercase text-indigo-600 mb-2"></p>
+            <p id="modalPrice" class="text-2xl font-semibold mb-2"></p>
+            <p id="modalDesc" class="text-gray-700 mb-4"></p>
+            <span id="modalStock" class="text-sm text-gray-600"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalPago" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full relative p-6">
+      <button id="closePago" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+      <h2 class="text-xl font-semibold mb-4">Método de Pago</h2>
+      <p class="mb-2">🏦 <strong>Transferencia bancaria:</strong></p>
+      <ul class="list-disc list-inside text-sm mb-4 text-gray-700">
+        <li>Banco: Bancolombia</li>
+        <li>Cuenta de ahorros: 841-717155-38</li>
+      </ul>
+      <div class="bg-yellow-100 text-yellow-800 p-3 rounded-md text-sm">
+        🐾 <strong>Participa:</strong> Ingresando <a href="https://groups.google.com/g/testersdnvdev" target="_blank" class="font-bold underline">aquí</a> y prueba nuestras aplicaciones.
+      </div>
+    </div>
+  </div>
+
+  <button id="abrirPago" class="fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-lg z-50">
+    💳 Método de pago
+  </button>
+
+  <script>
+    const products = [
+  {
+    id: 'p001',
+    name: 'Porta agujas',
+    category: 'Instrumental quirúrgico',
+    price: 27000,
+    image: './assets/products/portagujas.jpg',
+    description: 'Instrumento utilizado para sujetar la aguja durante la sutura.',
+    stock: 3
+  },
+  {
+    id: 'p002',
+    name: 'Pinza Kelly recta',
+    category: 'Pinzas',
+    price: 27000,
+    image: './assets/products/kellyrecta.jpg',
+    description: 'Pinza hemostática recta utilizada para controlar sangrados.',
+    stock: 3
+  },
+  {
+    id: 'p003',
+    name: 'Pinza Kelly curva',
+    category: 'Pinzas',
+    price: 27000,
+    image: './assets/products/kellycurva.jpg',
+    description: 'Pinza hemostática curva ideal para zonas de difícil acceso.',
+    stock: 3
+  },
+  {
+    id: 'p004',
+    name: 'Pinza Rochester recta',
+    category: 'Pinzas',
+    price: 40000,
+    image: './assets/products/rochesterrecta.jpg',
+    description: 'Pinza robusta recta usada en procedimientos quirúrgicos.',
+    stock: 4
+  },
+  {
+    id: 'p005',
+    name: 'Pinza Rochester curva',
+    category: 'Pinzas',
+    price: 40000,
+    image: './assets/products/rochestercurva.webp',
+    description: 'Versión curva de la pinza Rochester para mejor maniobrabilidad.',
+    stock: 4
+  },
+  {
+    id: 'p006',
+    name: 'Pinza mosquito recta',
+    category: 'Pinzas',
+    price: 27000,
+    image: './assets/products/mosquitorecta.png',
+    description: 'Pinza pequeña recta usada en cirugía delicada.',
+    stock: 3
+  },
+  {
+    id: 'p007',
+    name: 'Pinza mosquito curva',
+    category: 'Pinzas',
+    price: 27000,
+    image: './assets/products/mosquitocurva.jpg',
+    description: 'Pinza pequeña curva útil en procedimientos precisos.',
+    stock: 3
+  },
+  {
+    id: 'p008',
+    name: 'Pinza de campo',
+    category: 'Pinzas',
+    price: 14000,
+    image: './assets/products/campo.jpg',
+    description: 'Pinza usada para fijar campos quirúrgicos estériles.',
+    stock: 8
+  },
+  {
+    id: 'p009',
+    name: 'Pinza Allis',
+    category: 'Pinzas',
+    price: 29000,
+    image: './assets/products/allis.webp',
+    description: 'Pinza para sujetar tejidos sin dañarlos.',
+    stock: 5
+  },
+  {
+    id: 'p010',
+    name: 'Pinza disección garra',
+    category: 'Pinzas',
+    price: 36000,
+    image: './assets/products/diseccioncongarra.jpg',
+    description: 'Pinza con dientes para manipulación firme de tejidos.',
+    stock: 3
+  },
+  {
+    id: 'p011',
+    name: 'Pinza disección sin garra',
+    category: 'Pinzas',
+    price: 36000,
+    image: './assets/products/diseccionsingarra.jpg',
+    description: 'Pinza de disección sin dientes para tejidos delicados.',
+    stock: 3
+  },
+  {
+    id: 'p012',
+    name: 'Mango bisturí 3',
+    category: 'Corte',
+    price: 12000,
+    image: './assets/products/mangobisturi3.jpg',
+    description: 'Mango para hojas de bisturí tamaño 3.',
+    stock: 3
+  },
+  {
+    id: 'p013',
+    name: 'Mango bisturí 4',
+    category: 'Corte',
+    price: 12000,
+    image: './assets/products/mangobisturi4.webp',
+    description: 'Mango para hojas de bisturí tamaño 4.',
+    stock: 3
+  },
+  {
+    id: 'p014',
+    name: 'Tijeras Mayo recta',
+    category: 'Corte',
+    price: 48000,
+    image: './assets/products/tijeramayorecta.jpg',
+    description: 'Tijeras rectas para cortar tejidos resistentes.',
+    stock: 3
+  },
+  {
+    id: 'p015',
+    name: 'Separador Farabeuf',
+    category: 'Retractores',
+    price: 32000,
+    image: './assets/products/separadorfarabeuf.webp',
+    description: 'Instrumento para separar bordes de heridas o incisiones.',
+    stock: 2
+  },
+  {
+    id: 'p016',
+    name: 'Tijeras Metzenbaum recta',
+    category: 'Corte',
+    price: 32000,
+    image: './assets/products/tijerametzenbaumrecta.webp',
+    description: 'Tijeras rectas para cortar tejidos blandos.',
+    stock: 2
+  },
+  {
+    id: 'p017',
+    name: 'Sonda acanalada',
+    category: 'Instrumental general',
+    price: 15000,
+    image: './assets/products/sondaacanalada.webp',
+    description: 'Guía para bisturí, útil en disecciones delicadas.',
+    stock: 3
+  },
+  {
+    id: 'p018',
+    name: 'Tijera sutura',
+    category: 'Corte',
+    price: 29000,
+    image: './assets/products/tijerasutura.webp',
+    description: 'Tijeras diseñadas para cortar puntos de sutura.',
+    stock: 2
+  },
+  {
+    id: 'p019',
+    name: 'Cuchillas bisturí caja',
+    category: 'Corte',
+    price: 39500,
+    image: './assets/products/cuchillabisturi.webp',
+    description: 'Caja con cuchillas quirúrgicas estériles.',
+    stock: 1
+  },
+  {
+    id: 'p020',
+    name: 'Caja guantes látex',
+    category: 'Descartables',
+    price: 20000,
+    image: './assets/products/cajalatex.jpeg',
+    description: 'Guantes de látex para procedimientos estériles.',
+    stock: 1
+  },
+  {
+    id: 'p021',
+    name: 'Par látex',
+    category: 'Descartables',
+    price: 500,
+    image: './assets/products/parlatex.webp',
+    description: 'Par de guantes de látex para uso veterinario.',
+    stock: 50
+  },
+  {
+    id: 'p022',
+    name: 'Kit disección 9 piezas',
+    category: 'Sets',
+    price: 57000,
+    image: './assets/products/kitdiseccion.webp',
+    description: 'Set completo de instrumentos para disección básica.',
+    stock: 15
+  }
+];
+
+
+    function formatPrice(value) {
+      return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(value);
+    }
+
+    let currentSearch = '';
+    const grid = document.getElementById('productsGrid');
+    const searchInput = document.getElementById('searchInput');
+    const totalCount = document.getElementById('totalCount');
+    const noResults = document.getElementById('noResults');
+
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalStock = document.getElementById('modalStock');
+
+    function renderProducts() {
+      const filtered = products.filter(p => {
+        return currentSearch
+          ? p.name.toLowerCase().includes(currentSearch) || p.description.toLowerCase().includes(currentSearch)
+          : true;
+      });
+
+      grid.innerHTML = '';
+      totalCount.textContent = `${filtered.length} producto(s)`;
+      noResults.classList.toggle('hidden', filtered.length > 0);
+
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl shadow p-4 flex flex-col hover:shadow-lg transition';
+
+        const img = document.createElement('img');
+        img.src = p.image;
+        img.alt = p.name;
+        img.className = 'w-full h-48 object-cover rounded-md mb-3';
+        card.appendChild(img);
+
+        const info = document.createElement('div');
+        const title = document.createElement('h3');
+        title.textContent = p.name;
+        title.className = 'text-lg font-semibold mb-1';
+
+        const cat = document.createElement('p');
+        cat.textContent = p.category;
+        cat.className = 'text-xs uppercase text-indigo-600 mb-2';
+
+        const price = document.createElement('p');
+        price.textContent = formatPrice(p.price);
+        price.className = 'text-xl font-bold mb-2';
+
+        const footer = document.createElement('div');
+        footer.className = 'mt-auto flex items-center gap-2';
+
+        const stockBadge = document.createElement('span');
+        stockBadge.textContent = p.stock > 0 ? `En stock: ${p.stock}` : 'Agotado';
+        stockBadge.className = p.stock > 0
+          ? 'text-sm text-green-600'
+          : 'text-sm text-red-600';
+
+        const viewBtn = document.createElement('button');
+        viewBtn.textContent = 'Ver más';
+        viewBtn.className = 'ml-auto px-3 py-1 bg-indigo-600 text-white rounded-md text-sm hover:bg-indigo-700';
+        viewBtn.addEventListener('click', () => openModal(p));
+
+        footer.appendChild(stockBadge);
+        footer.appendChild(viewBtn);
+
+        info.appendChild(title);
+        info.appendChild(cat);
+        info.appendChild(price);
+        info.appendChild(footer);
+
+        card.appendChild(info);
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(product) {
+      modalImage.src = product.image;
+      modalName.textContent = product.name;
+      modalCategory.textContent = product.category;
+      modalPrice.textContent = formatPrice(product.price);
+      modalDesc.textContent = product.description;
+      modalStock.textContent = product.stock > 0 ? `Disponible: ${product.stock}` : 'Sin stock';
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      currentSearch = e.target.value.trim().toLowerCase();
+      renderProducts();
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    const modalPago = document.getElementById('modalPago');
+    const abrirPago = document.getElementById('abrirPago');
+    const closePago = document.getElementById('closePago');
+
+    abrirPago.addEventListener('click', () => modalPago.classList.remove('hidden'));
+    closePago.addEventListener('click', () => modalPago.classList.add('hidden'));
+    modalPago.addEventListener('click', (e) => {
+      if (e.target === modalPago) modalPago.classList.add('hidden');
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>
