@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tienda MVZ</title>
+  <script type="module" src="script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="./assets/mvz.png" type="image/x-icon">
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800">
+  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow sticky top-0 left-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between sm:items-center text-white">
+      <div class="text-2xl font-bold tracking-wide flex items-center gap-2">🐕 MVZ 🐕</div>
+
+      <div class="flex gap-4 items-center mt-2 sm:mt-0">
+        <input id="searchInput" type="text" placeholder="Buscar producto..." 
+          class="px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 text-gray-800" />
+
+        <div id="totalCount" class="text-sm opacity-80"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <div id="noResults" class="hidden text-center py-10 text-gray-500 text-lg">
+      ❌ No se encontraron productos con esos filtros.
+    </div>
+  </main>
+
+  <!-- MODAL PAGO -->
+  <div id="modalPago" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full relative p-6 animate-fadeIn">
+      <button id="closePago" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+
+      <h2 class="text-xl font-semibold mb-4">Método de Pago</h2>
+
+      <p class="mb-2">🏦 <strong>Transferencia bancaria:</strong></p>
+      <ul class="list-disc list-inside text-sm mb-4 text-gray-700">
+        <li>Banco: Bancolombia</li>
+        <li>Cuenta: 841-717155-38</li>
+      </ul>
+    </div>
+  </div>
+
+  <button id="abrirPago" class="fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-full shadow-lg z-50 transform hover:scale-105 transition">
+    💳 Método de pago
+  </button>
+</body>
+</html>
