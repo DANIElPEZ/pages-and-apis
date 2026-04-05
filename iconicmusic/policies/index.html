@@ -3,50 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Privacy Policy – Iconic Music</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Rubik+Vinyl&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #05a4a7;
+      color: #fff;
+      font-family: 'Merriweather', serif;
+    }
+
+    /* ── AppBar ── */
+    .appbar-wrapper {
+      position: relative;
+      background-color: #05a4a7; /* teal shows through the wave cutout */
+      line-height: 0;
+    }
+
+    /* SVG IS the full appbar — the dark wave shape painted over teal */
+    .appbar-svg {
+      display: block;
+      width: 100%;
+      height: 80px;
+    }
+
+    /* Title is absolutely positioned above the SVG */
+    .appbar-title-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .appbar-title {
+      font-family: 'Rubik Vinyl', cursive;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    /* ── Content ── */
+    .content {
+      padding: 25px 20px 50px;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .date {
+      font-size: 16px;
+      font-style: italic;
+      margin-bottom: 25px;
+    }
+
+    .intro {
+      font-size: 20px;
+      line-height: 1.4;
+      margin-bottom: 25px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .section p {
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .contact-item {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    a { color: #fff; }
+  </style>
 </head>
-<body class="bg-[#05a4a7] text-gray-100">
-  <div class="max-w-3xl mx-auto px-6 py-12">
+<body>
 
-    <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1>
-    <p class="mb-4">Last updated: December 5, 2025</p>
+  <!-- AppBar: teal bg + dark wave shape (exact Flutter CustomPainter path) -->
+  <!--
+    Flutter path with H=80, W=1440:
+      lineTo(0, 0)
+      lineTo(0, H-40)          → (0, 40)
+      quadraticBezierTo(W/20, H+25, W/2, H-50)  → control(72, 105), end(720, 30)
+      quadraticBezierTo(W/1.5, H-75, W, H-10)   → control(960, 5),  end(1440, 70)
+      lineTo(W, 0)             → (1440, 0)
+      close
+  -->
+  <div class="appbar-wrapper">
+    <svg class="appbar-svg" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L0,40 Q72,105 720,30 Q960,5 1440,70 L1440,0 Z" fill="#162521"/>
+    </svg>
+    <div class="appbar-title-bar">
+      <span class="appbar-title">Iconic Music</span>
+    </div>
+  </div>
 
-    <p class="mb-4">
-      This application developed by <strong>dnvdev</strong> respects the privacy of its users.
-      This app does <strong>not collect, store, or share any personal information</strong>.
+  <!-- Content -->
+  <div class="content">
+
+    <h1>Privacy Policy</h1>
+    <p class="date">Last updated: December 5, 2025</p>
+
+    <p class="intro">
+      This application developed by dnvdev respects the privacy of its users.
+      This app does not collect, store, or share any personal information.
     </p>
 
-    <h2 class="text-xl font-semibold mt-8 mb-2">1. No Information Collected</h2>
-    <p class="mb-4">
-      We do not collect any personal data, usage data, analytics, device identifiers, or any type of information.
-      No login, registration, email, or personal identification is required to use the application.
-    </p>
+    <div class="section">
+      <h2>1. No Information Collected</h2>
+      <p>We do not collect any personal data, usage data, analytics, device identifiers, or any type of information. No login, registration, email, or personal identification is required to use the application.</p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-8 mb-2">2. No Sharing of Data</h2>
-    <p class="mb-4">
-      Since no data is collected, <strong>no information is shared, sold, exchanged, or transferred</strong>
-      to third parties for any purpose.
-    </p>
+    <div class="section">
+      <h2>2. No Sharing of Data</h2>
+      <p>Since no data is collected, no information is shared, sold, exchanged, or transferred to third parties for any purpose.</p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-8 mb-2">3. No External Tracking</h2>
-    <p class="mb-4">
-      This application does not use cookies, tracking tools, analytics tools, or third-party services
-      that process information about the user.
-    </p>
+    <div class="section">
+      <h2>3. No External Tracking</h2>
+      <p>This application does not use cookies, tracking tools, analytics tools, or third-party services that process information about the user.</p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-8 mb-2">4. Changes to This Policy</h2>
-    <p class="mb-4">
-      If the privacy policy changes in the future, the updated version will be published here with a new date.
-    </p>
+    <div class="section">
+      <h2>4. Changes to This Policy</h2>
+      <p>If the privacy policy changes in the future, the updated version will be published here with a new date.</p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-8 mb-2">5. Contact</h2>
-    <p class="mb-2">If you have questions about this Privacy Policy, you may contact:</p>
-    <ul class="pl-6 list-disc">
-      <li>Email: <a href="mailto:daniel.gonzalezubaque@gmail.com" class="text-blue-300 underline">daniel.gonzalezubaque@gmail.com</a></li>
-      <li>Developer: dnvdev</li>
-    </ul>
+    <div class="section">
+      <h2>5. Contact</h2>
+      <p>If you have questions about this Privacy Policy, you may contact:</p>
+      <p class="contact-item">Email: <a href="mailto:daniel.gonzalezubaque@gmail.com">daniel.gonzalezubaque@gmail.com</a></p>
+      <p class="contact-item">Developer: dnvdev</p>
+    </div>
 
   </div>
+
 </body>
 </html>
