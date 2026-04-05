@@ -1,1 +1,185 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Privacy Policy</title> <script src="https://cdn.tailwindcss.com"></script> </head> <body class="bg-[#1a2f56] text-gray-100"> <div class="max-w-3xl mx-auto px-6 py-12"> <h1 class="text-3xl font-bold mb-6">Privacy Policy</h1> <p class="mb-4">Last updated: December 5, 2025</p> <p class="mb-4"> This application developed by <strong>dnvdev</strong> respects and protects the personal information of its users. This app is exclusively for flight simulation purposes and must not be used in real-world conditions nor for making real aviation decisions. </p> <h2 class="text-xl font-semibold mt-8 mb-2">1. Information Collected</h2> <p class="mb-4"> To enable certain features and access products that remove ads within the application, we collect: </p> <ul class="list-disc pl-6 mb-4"> <li>Username</li> <li>Password (stored in encrypted form)</li> </ul> <p class="mb-4"> The password is encrypted before being stored in the database. <strong>We do not have access to the clear text password at any time.</strong> </p> <h2 class="text-xl font-semibold mt-8 mb-2">2. Purpose of Using the Information</h2> <p class="mb-4"> The collected information is used solely to: </p> <ul class="list-disc pl-6 mb-4"> <li>Create and authenticate your user account</li> <li>Verify the purchase of the product that removes ads</li> <li>Manage your access within the application</li> </ul> <p class="mb-4"> <strong>We do not use the information for commercial or advertising purposes.</strong> </p> <h2 class="text-xl font-semibold mt-8 mb-2">3. Storage and Provider</h2> <p class="mb-4"> The data is stored in <strong>Supabase</strong> (a secure authentication and database service). Supabase may collect technical information for performance and security purposes, such as IP address or access statistics. </p> <h2 class="text-xl font-semibold mt-8 mb-2">4. Security</h2> <p class="mb-4"> We implement security measures such as encryption and secure data transmission. However, no system is completely invulnerable. </p> <h2 class="text-xl font-semibold mt-8 mb-2">5. Simulation Use Only</h2> <p class="mb-4"> The information displayed in this app is for flight simulation only. It must not be used for certified training, real navigation, or real-world aviation decision-making. </p> <h2 class="text-xl font-semibold mt-8 mb-2">6. Changes to This Policy</h2> <p class="mb-4"> We may update this policy, and any changes will be published on this page with a visible update date. </p> <h2 class="text-xl font-semibold mt-8 mb-2">7. Contact</h2> <p class="mb-2">For inquiries or requests related to your information:</p> <ul class="pl-6 list-disc"> <li>Email: <a href="mailto:daniel.gonzalezubaque@gmail.com" class="text-blue-400 underline">daniel.gonzalezubaque@gmail.com</a></li> <li>Developer: dnvdev</li> </ul> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy – Fly in Sky</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #000;
+        }
+
+        .container {
+            color: #fff;
+            background-color: #1a2f56;
+            min-height: 103dvh;
+            overflow-y: auto;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 20px 16px;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .page-date {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 18px;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .section-body {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .section-body.bold {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        ul {
+            list-style: none;
+            margin: 6px 0 10px 0;
+        }
+
+        ul li {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .contact-link {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <span class="material-symbols-outlined">flight_takeoff</span>
+            <div class="logo-text">Fly in sky</div>
+        </header>
+
+        <div class="content">
+
+            <div class="page-title">Privacy Policy</div>
+            <div class="page-date">Last Updated: December 5, 2025</div>
+
+            <p class="intro-text">
+                This application developed by dnvdev respects and protects the personal information of its users. This app is exclusively for flight simulation purposes and must not be used in real-world conditions nor for making real aviation decisions.
+            </p>
+
+            <div class="section">
+                <div class="section-title">1. Information Collected</div>
+                <p class="section-body">To enable certain features and access products that remove ads within the application, we collect:</p>
+                <ul>
+                    <li>Username</li>
+                    <li>Password (stored in encrypted form)</li>
+                </ul>
+                <p class="section-body">The password is encrypted before being stored in the database. We do not have access to the clear title password at any time.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">2. Purpose of Using the Information</div>
+                <p class="section-body">The collected information is used solely to:</p>
+                <ul>
+                    <li>Create and authenticate your user account</li>
+                    <li>Verify the purchase of the product that removes ads</li>
+                    <li>Manage your access within the application</li>
+                </ul>
+                <p class="section-body bold">We do not use the information for commercial or advertising purposes.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">3. Storage and Provider</div>
+                <p class="section-body">The data is stored in Supabase (a secure authentication and database service). Supabase may collect technical information for performance and security purposes, such as IP address or access statistics.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">4. Security</div>
+                <p class="section-body">We implement security measures such as encryption and secure data transmission. However, no system is completely invulnerable.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">5. Simulation Use Only</div>
+                <p class="section-body">The information displayed in this app is for flight simulation only. It must not be used for certified training, real navigation, or real-world aviation decision-making.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">6. Changes to This Policy</div>
+                <p class="section-body">We may update this policy, and any changes will be published on this page with a visible update date.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">7. Contact</div>
+                <p class="section-body">For inquiries or requests related to your information:</p>
+                <ul>
+                    <li>Email: <a class="contact-link" href="mailto:daniel.gonzalezubaque@gmail.com">daniel.gonzalezubaque@gmail.com</a></li>
+                    <li>Developer: dnvdev</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
