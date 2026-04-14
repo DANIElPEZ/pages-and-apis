@@ -1,5 +1,5 @@
 const products = [
-  { id: 'p01', name: 'Kit disección 9 piezas', category: 'Sets', image: './assets/kitdiseccion.png', price: 62000 },
+  { id: 'p01', name: 'Kit disección 9 piezas', category: 'Sets', image: './assets/kitdiseccion.webp', price: 62000 },
   { id: 'p02', name: 'Mango bisturí 4', category: 'Corte', image: './assets/mangobisturi4.webp', price: 7000 },
   { id: 'p03', name: 'Mango bisturí 3', category: 'Corte', image: './assets/mangobisturi3.jpg', price: 7000 },
   { id: 'p04', name: 'Pinza Allis', category: 'Pinzas', image: './assets/allis.webp', price: 17000 },
