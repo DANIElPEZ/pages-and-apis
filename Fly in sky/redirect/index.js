@@ -1,6 +1,10 @@
 window.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
+  if (code) {
+    window.location.href = `flyapp://callback?code=${code}`;
+    return; // detiene el resto
+  }
   const input = document.getElementById("codeInput");
   const btn = document.getElementById("copyBtn");
 
