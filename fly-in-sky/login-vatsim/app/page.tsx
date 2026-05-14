@@ -1,47 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
-
 export default function RedirectPage() {
-  useEffect(() => {
-    const authUrl = process.env.NEXT_PUBLIC_AUTH;
-    const clientId = process.env.NEXT_PUBLIC_CLIENT_ID;
-    const scopes = process.env.NEXT_PUBLIC_SCOPES;
-    const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URL;
-
-    // Validación básica: Si falta algo, no redirigimos para evitar errores de VATSIM
-    if (!authUrl || !clientId || !redirectUri) {
-      console.error("Configuración incompleta. Revisa las variables de entorno.");
-      return;
-    }
-
-    const fullUrl = `${authUrl}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-      redirectUri
-    )}&response_type=code&scope=${encodeURIComponent(scopes || "")}`;
-
-    // Pequeño delay opcional para que el usuario vea que algo ocurre
-    const timeout = setTimeout(() => {
-      window.location.href = fullUrl;
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
+  const handleLogin = async () => {
+    const res = await fetch('/api/auth-url');
+    const data = await res.json();
+    window.location.href = data.url;
+  };
 
   return (
-    <main className="min-h-screen bg-[#1a2f56] font-mono text-white flex flex-col items-center justify-center p-4">
-      <div className="flex flex-col items-center gap-6">
-        {/* Spinner animado */}
-        <div className="w-12 h-12 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+    <main className="min-h-screen bg-[#1a2f56] flex flex-col items-center justify-center p-6 font-mono">
+      <div className="bg-[#12213c] p-8 rounded-2xl shadow-2xl text-center border border-white/10">
+        <h1 className="text-white text-2xl font-bold mb-4">Fly In Sky</h1>
+        <p className="text-white/70 mb-8">Conecta tu cuenta de VATSIM para continuar</p>
         
-        <div className="text-center">
-          <h2 className="text-xl font-medium mb-2">Connecting to VATSIM</h2>
-          <p className="text-white/60 text-sm italic">Please wait a moment...</p>
-        </div>
-      </div>
-
-      {/* Footer decorativo */}
-      <div className="absolute bottom-10 opacity-30 text-xs tracking-widest uppercase">
-        OAuth Secure Gateway
+        <button 
+          onClick={handleLogin}
+          className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-lg font-bold transition-all active:scale-95"
+        >
+          Iniciar Sesión
+        </button>
       </div>
     </main>
   );
