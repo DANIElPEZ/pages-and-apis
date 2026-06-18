@@ -1,41 +1,41 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useEffect } from 'react';
 
-export default function VatsimLogin() {
-  const [loading, setLoading] = useState(false);
+function generateCodeVerifier() {
+  const array = new Uint32Array(56);
+  window.crypto.getRandomValues(array);
+  return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
+}
 
-  const startLogin = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/auth-url');
-      const data = await res.json();
+async function generateCodeChallenge(verifier: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(verifier);
+  const digest = await window.crypto.subtle.digest('SHA-256', data);
+  return btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+export default function LoginPage() {
+  useEffect(() => {
+    const startOAuth = async () => {
+      const verifier = generateCodeVerifier();
+      const challenge = await generateCodeChallenge(verifier);
       
-      // En lugar de redirección automática, usamos esto:
-      // Esto le dice al navegador que reemplace la entrada actual, 
-      // ayudando a que el WebView no pierda el hilo.
-      window.location.replace(data.url);
-    } catch (e) {
-      setLoading(false);
-      alert("Error al conectar");
-    }
-  };
+      localStorage.setItem('pkce_verifier', verifier);
 
-  return (
-    <main className="min-h-screen bg-[#1a2f56] flex flex-col items-center justify-center p-6 font-mono text-white">
-      <div className="text-center space-y-6">
-        <h1 className="text-3xl font-bold italic tracking-tighter">FLY IN SKY</h1>
-        <div className="p-10 bg-[#12213c] rounded-3xl border border-white/10 shadow-2xl">
-          <p className="mb-8 text-white/80">Haz clic abajo para iniciar sesión de forma segura dentro de este dominio.</p>
-          
-          <button 
-            onClick={startLogin}
-            disabled={loading}
-            className="w-full py-4 bg-white text-[#1a2f56] rounded-xl font-black uppercase tracking-widest hover:bg-opacity-90 active:scale-95 transition-all disabled:opacity-50"
-          >
-            {loading ? "Cargando..." : "CONECTAR AHORA"}
-          </button>
-        </div>
-      </div>
-    </main>
-  );
+      const params = new URLSearchParams({
+        response_type: 'code',
+        client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+        redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URL!,
+        scope: process.env.NEXT_PUBLIC_SCOPES!,
+        code_challenge: challenge,
+        code_challenge_method: 'S256',
+      });
+
+      window.location.href = `${process.env.NEXT_PUBLIC_AUTH}?${params.toString()}`;
+    };
+    startOAuth();
+  }, []);
+
+  return <div className="flex min-h-screen items-center justify-center bg-slate-900 text-white">Redirection to VATSIM...</div>;
 }
