@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 export default function CallbackPage() {
-  const [status, setStatus] = useState('Obteniendo Token...');
+  const [status, setStatus] = useState('Obtaining Token...');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
