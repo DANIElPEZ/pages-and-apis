@@ -1,8 +1,9 @@
 'use client';
-import { useEffect } from 'react';
+
+import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -15,9 +16,20 @@ export default function SuccessPage() {
   }, [searchParams]);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', fontFamily: 'sans-serif' }}>
-      <h2>Autenticación Exitosa</h2>
-      <p>Redirigiéndote de vuelta a FlyInSky...</p>
+    <div className="flex min-h-screen items-center justify-center bg-slate-900 text-white">
+      Redirection to fly in sky...
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-slate-900 text-white">
+        <p>Loading...</p>
+      </div>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }
